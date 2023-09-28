@@ -1,0 +1,74 @@
+.rjs-follow-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: white;
+  column-gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.rjs-follow-card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rjs-follow-card-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-right: 0.25rem;
+}
+
+.rjs-follow-card-header  div {
+  display: flex;
+  flex-direction: column;
+}
+
+.rjs-follow-card-alias {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.rjs-follow-card-button {
+  border: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  color: #222;
+  font-weight: 700;
+  cursor: pointer;
+  background: white;
+}
+
+.rjs-follow-card-button.is-following {
+  background: none;
+  border: 1px solid #dadada;
+  color: white;
+}
+
+.rjs-follow-card-button:hover {
+  transition: .3s ease background-color,
+              .3s ease color;
+  background-color: #09f;
+  color: white;
+}
+
+.rjs-follow-card-button.is-following:hover {
+  border: 1px solid #e74c3c;
+  background-color: rgba(192, 57, 43, .3);
+  transform: scale(1.1);
+  transition: .5s ease-out transform;
+}
+
+.rjs-fllow-card-following-hover {
+  display: none;
+}
+
+.rjs-follow-card-button.is-following:hover .rjs-fllow-card-text { 
+  display: none;
+}
+
+.rjs-follow-card-button.is-following:hover .rjs-fllow-card-following-hover {
+  display: block;
+}
