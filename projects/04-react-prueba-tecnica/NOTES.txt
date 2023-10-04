@@ -1,0 +1,23 @@
+1.- Iniciar proyecto de vite sin punto de entrada en React
+
+  npm create vite@latest
+
+2.- Iniciar sin framework, elegir Vanilla JS
+3.- Instalar plugin de Vite para React
+  
+  npm install @vitejs/plugin-react
+
+4.- Instalar librerias de react
+
+  npm install react reactdom
+
+5.- Crear configuración de Vite
+  /vite.config.js
+
+6.- Cambiar a .jsx para que vite detecte y transpile la sintaxis
+7.- Instalar Linter
+
+  npm i standard
+  add to package.json "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
+  }
