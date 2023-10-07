@@ -15,6 +15,7 @@ form {
   align-items: center;
   justify-content: center;
   column-gap: 1rem;
+  flex-wrap: wrap;
 }
 
 header {
@@ -66,4 +67,10 @@ h1 {
   border-radius: 0.25rem;
   font-size: 0.75rem;
   margin-top: 0.5rem;
+}
+
+.search-options {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

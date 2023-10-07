@@ -1,12 +1,21 @@
+import { useCallback, useRef, useState } from 'react';
 import './App.css';
 import Loading from './components/Loading';
 import Movies from './components/Movies';
 import useMovies from './hooks/useMovies';
 import useSearch from './hooks/useSearch';
+import debounce from 'just-debounce-it';
 
 function App() {
+  const [sortByTitle, setSortByTitle] = useState(false);
   const { query, setQuery, error } = useSearch();
-  const { movies, getMovies, loading } = useMovies({ query });
+  const { movies, getMovies, loading } = useMovies({ query, sortByTitle });
+  const debounceSearch = useCallback(
+    debounce((query) => {
+      getMovies({ query });
+    }, 500),
+    [getMovies]
+  );
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,11 +31,17 @@ function App() {
     }
     console.log(query);
     */
-    getMovies();
+    getMovies({ query });
   };
 
   const handleChange = (event) => {
-    setQuery(event.target.value);
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+    debounceSearch(newQuery);
+  };
+
+  const handleSort = () => {
+    setSortByTitle(!sortByTitle);
   };
 
   return (
@@ -42,6 +57,18 @@ function App() {
             placeholder="Avengers, Star Wars, The Matriz..."
           />
           <button type="submit">Buscar</button>
+          <div className="search-options">
+            <label htmlFor="sort-by-title">
+              <input
+                type="checkbox"
+                name="sort-by-title"
+                id="sort-by-title"
+                value={sortByTitle}
+                onChange={handleSort}
+              />
+              Ordenar por título
+            </label>
+          </div>
         </form>
         <div
           style={{ color: '#c0392b', textAlign: 'center', fontSize: '0.75rem' }}
