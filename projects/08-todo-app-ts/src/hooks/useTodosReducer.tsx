@@ -20,7 +20,7 @@ export function useTodosReducer() {
     dispatch({ type: TODO_ACTIONS.TOGGLE_COMPLETE_TASK, payload: id });
   };
 
-  const filter = (filterType: FilterType) => {
+  const setFilter = (filterType: FilterType) => {
     dispatch({ type: TODO_ACTIONS.FILTER, payload: filterType });
   };
 
@@ -28,5 +28,5 @@ export function useTodosReducer() {
     dispatch({ type: TODO_ACTIONS.CLEAR });
   };
 
-  return { addTask, removeTask, toggleCompleteTask, filter, clear, state };
+  return { addTask, removeTask, toggleCompleteTask, setFilter, clear, state };
 }

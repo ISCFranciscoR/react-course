@@ -3,7 +3,7 @@ import { Todo } from '../src/models/todo';
 import { FILTER_TYPES, FilterType, TodoId } from '../src/types/types.d';
 
 
-interface TodoState {
+export interface TodoState {
   todos: Todo[];
   activeFilter: FilterType;
 }
@@ -17,7 +17,7 @@ export const TODO_ACTIONS = {
   ADD_TASK: 'ADD_TASK',
   REMOVE_TASK: 'REMOVE_TASK',
   TOGGLE_COMPLETE_TASK: 'TOGGLE_COMPLETE_TASK',
-  FILTER: 'FILTER_TASKS',
+  FILTER: 'SET_FILTER_TASKS',
   CLEAR: 'CLEAR_TASKS'
 }
 
@@ -31,35 +31,33 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       };
     },
     [ TODO_ACTIONS.REMOVE_TASK ]: (): TodoState => {
-      // const id: TodoId = payload;
-      // const newState = todos.filter( ( _task: Todo ) => _task.id !== id );
-      // return newState;
+      const id: TodoId = payload;
+      return {
+        ...state,
+        todos: state.todos.filter( ( _task: Todo ) => _task.id !== id )
+      };
     },
     [ TODO_ACTIONS.TOGGLE_COMPLETE_TASK ]: (): TodoState => {
-      // const id: TodoId = payload;
-      // return todos.map( ( _task: Todo ) => {
-      //   if ( _task.id === id ) {
-      //     return {
-      //       ..._task,
-      //       completed: !_task.completed
-      //     }
-      //   }
-      //   return _task;
-      // } );
+      const id: TodoId = payload;
+      return {
+        ...state,
+        todos: state.todos.map( ( _task: Todo ) => {
+          if ( _task.id === id ) {
+            return {
+              ..._task,
+              completed: !_task.completed
+            }
+          }
+          return _task;
+        } )
+      };
     },
-    [ TODO_ACTIONS.FILTER ]: ( filterType: FilterType ): TodoState => {
-      // const FILTERS_FNS = {
-      //   [ FILTER_TYPES.ALL ]: () => {
-      //     return todoInitialState;
-      //   },
-      //   [ FILTER_TYPES.ACTIVE ]: () => {
-      //     return todos.filter( ( _task: Todo ) => !_task.completed )
-      //   },
-      //   [ FILTER_TYPES.COMPLETED ]: () => {
-      //     return todos.filter( ( _task: Todo ) => _task.completed )
-      //   }
-      // }
-      // return FILTERS_FNS[ filterType ]() || [];
+    [ TODO_ACTIONS.FILTER ]: (): TodoState => {
+      const filterType: FilterType = payload;
+      return {
+        ...state,
+        activeFilter: filterType
+      }
     }
   }
 

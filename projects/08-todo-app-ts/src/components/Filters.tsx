@@ -2,6 +2,7 @@ import React from 'react';
 import { Filter } from './Filter';
 import { FilterInfo } from '../models/filter-info';
 import { FILTER_TYPES } from '../types/types.d';
+import { useTodos } from '../hooks/useTodos';
 
 interface Props {}
 
@@ -21,7 +22,7 @@ const FILTER_BUTTONS: FilterInfo[] = [
 ];
 
 export const Filters: React.FC<Props> = () => {
-  const activeFilter = FILTER_TYPES.ALL;
+  const { activeFilter, setFilter: onFilter } = useTodos();
   return (
     <ul className="filters">
       {FILTER_BUTTONS.map((filter) => {
@@ -30,6 +31,7 @@ export const Filters: React.FC<Props> = () => {
             key={filter.type}
             activeFilter={activeFilter}
             filterInfo={filter}
+            onFilter={onFilter}
           />
         );
       })}

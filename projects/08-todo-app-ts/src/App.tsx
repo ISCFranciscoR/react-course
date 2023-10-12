@@ -3,9 +3,7 @@ import { useTodos } from './hooks/useTodos';
 import { Footer } from './components/Footer';
 
 function App(): JSX.Element {
-  const {
-    state: { todos },
-  } = useTodos();
+  const { todos } = useTodos();
   return (
     <>
       <header>
