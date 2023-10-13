@@ -2,7 +2,6 @@ import { todos as mockTodos } from '../src/mocks/todos';
 import { Todo } from '../src/models/todo';
 import { FILTER_TYPES, FilterType, TodoId } from '../src/types/types.d';
 
-
 export interface TodoState {
   todos: Todo[];
   activeFilter: FilterType;
@@ -18,7 +17,9 @@ export const TODO_ACTIONS = {
   REMOVE_TASK: 'REMOVE_TASK',
   TOGGLE_COMPLETE_TASK: 'TOGGLE_COMPLETE_TASK',
   FILTER: 'SET_FILTER_TASKS',
-  CLEAR: 'CLEAR_TASKS'
+  CLEAR: 'CLEAR_TASKS',
+  TOGGLE_ALL: 'TOGGLE_ALL',
+  EDIT_TASK: 'EDIT_TASK'
 }
 
 export const todoReducer = ( state: TodoState, action ): TodoState => {
@@ -58,7 +59,35 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
         ...state,
         activeFilter: filterType
       }
+    },
+    [ TODO_ACTIONS.TOGGLE_ALL ]: (): TodoState => {
+      return {
+        ...state, todos: state.todos.map( task => ( {
+          ...task,
+          completed: !task.completed
+        } ) )
+      }
+    },
+    [ TODO_ACTIONS.CLEAR ]: (): TodoState => {
+      return {
+        ...state,
+        todos: state.todos.filter( task => !task.completed )
+      }
+    },
+    [ TODO_ACTIONS.EDIT_TASK ]: (): TodoState => {
+      const { id, title } = payload;
+      const newTasks = state.todos.map( task => {
+        if ( task.id === id ) {
+          return { ...task, title }
+        }
+        return task;
+      } );
+      return {
+        ...state,
+        todos: newTasks
+      }
     }
+
   }
 
   return REDUCER[ type ]() || todoInitialState;

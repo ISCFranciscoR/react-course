@@ -19,14 +19,27 @@ export function useTodosReducer() {
   const toggleCompleteTask = (id: TodoId) => {
     dispatch({ type: TODO_ACTIONS.TOGGLE_COMPLETE_TASK, payload: id });
   };
-
   const setFilter = (filterType: FilterType) => {
     dispatch({ type: TODO_ACTIONS.FILTER, payload: filterType });
   };
-
-  const clear = () => {
+  const clearAllCompleted = () => {
     dispatch({ type: TODO_ACTIONS.CLEAR });
   };
+  const toggleAll = () => {
+    dispatch({ type: TODO_ACTIONS.TOGGLE_ALL });
+  };
+  const editTask = (task: { id: TodoId; title: string }) => {
+    dispatch({ type: TODO_ACTIONS.EDIT_TASK, payload: task });
+  };
 
-  return { addTask, removeTask, toggleCompleteTask, setFilter, clear, state };
+  return {
+    addTask,
+    removeTask,
+    toggleCompleteTask,
+    setFilter,
+    clearAllCompleted,
+    toggleAll,
+    editTask,
+    state,
+  };
 }

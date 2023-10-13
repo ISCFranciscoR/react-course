@@ -22,7 +22,7 @@ const FILTER_BUTTONS: FilterInfo[] = [
 ];
 
 export const Filters: React.FC<Props> = () => {
-  const { activeFilter, setFilter: onFilter } = useTodos();
+  const { activeFilter, setFilter } = useTodos();
   return (
     <ul className="filters">
       {FILTER_BUTTONS.map((filter) => {
@@ -31,7 +31,7 @@ export const Filters: React.FC<Props> = () => {
             key={filter.type}
             activeFilter={activeFilter}
             filterInfo={filter}
-            onFilter={onFilter}
+            onFilter={setFilter}
           />
         );
       })}

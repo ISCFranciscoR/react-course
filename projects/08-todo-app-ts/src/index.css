@@ -1,0 +1,7 @@
+body {
+  max-width: 700px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
