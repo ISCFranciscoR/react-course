@@ -1,6 +1,7 @@
 import React, { useId, useState } from 'react';
 import { useTodos } from '../hooks/useTodos';
 import { getUUID } from '../helpers/utils';
+import { KEY_CODES } from '../constants/key-codes';
 
 interface Props {}
 
@@ -10,7 +11,7 @@ export const Header: React.FC<Props> = () => {
   const { addTask } = useTodos();
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    if (event.key === KEY_CODES.ENTER.key) {
       addTask({
         id: getUUID(),
         title: newTask,
@@ -26,7 +27,7 @@ export const Header: React.FC<Props> = () => {
       <input
         id={id}
         className="new-todo"
-        placeholder="What needs to be done?"
+        placeholder="¿Qué necesitas hacer?"
         value={newTask}
         onChange={(event) => setNewTask(event.target.value)}
         onKeyDown={handleKeyDown}

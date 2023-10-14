@@ -16,6 +16,7 @@ interface TodosContextData extends TodoState {
 
 export const TodosContext = createContext<TodosContextData>({
   todos: [],
+  sync: false,
   activeFilter: FILTER_TYPES.ALL,
   addTask: () => {},
   removeTask: () => {},
@@ -42,11 +43,12 @@ export function TodosProvider({ children }: Props) {
     state,
   } = useTodosReducer();
 
-  const { todos, activeFilter } = state;
+  const { todos, sync, activeFilter } = state;
   const [filteredTodos, setFilteresTodos] = useState(todos);
   const valueProvider = {
     activeFilter,
     todos: filteredTodos,
+    sync,
     addTask,
     removeTask,
     toggleCompleteTask,

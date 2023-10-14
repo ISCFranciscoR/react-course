@@ -1,18 +1,20 @@
-import { todos as mockTodos } from '../src/mocks/todos';
 import { Todo } from '../src/models/todo';
 import { FILTER_TYPES, FilterType, TodoId } from '../src/types/types.d';
 
 export interface TodoState {
   todos: Todo[];
+  sync: boolean;
   activeFilter: FilterType;
 }
 
 export const todoInitialState: TodoState = {
-  todos: mockTodos,
+  todos: [],
+  sync: false,
   activeFilter: FILTER_TYPES.ALL
 }
 
 export const TODO_ACTIONS = {
+  INIT_TASKS: 'INIT_TASKS',
   ADD_TASK: 'ADD_TASK',
   REMOVE_TASK: 'REMOVE_TASK',
   TOGGLE_COMPLETE_TASK: 'TOGGLE_COMPLETE_TASK',
@@ -25,9 +27,17 @@ export const TODO_ACTIONS = {
 export const todoReducer = ( state: TodoState, action ): TodoState => {
   const { type, payload } = action;
   const REDUCER = {
+    [ TODO_ACTIONS.INIT_TASKS ]: (): TodoState => {
+      return {
+        ...state,
+        sync: false,
+        todos: payload
+      }
+    },
     [ TODO_ACTIONS.ADD_TASK ]: (): TodoState => {
       return {
         ...state,
+        sync: true,
         todos: [ ...state.todos, payload ]
       };
     },
@@ -35,6 +45,7 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       const id: TodoId = payload;
       return {
         ...state,
+        sync: true,
         todos: state.todos.filter( ( _task: Todo ) => _task.id !== id )
       };
     },
@@ -42,6 +53,7 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       const id: TodoId = payload;
       return {
         ...state,
+        sync: true,
         todos: state.todos.map( ( _task: Todo ) => {
           if ( _task.id === id ) {
             return {
@@ -57,12 +69,15 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       const filterType: FilterType = payload;
       return {
         ...state,
+        sync: false,
         activeFilter: filterType
       }
     },
     [ TODO_ACTIONS.TOGGLE_ALL ]: (): TodoState => {
       return {
-        ...state, todos: state.todos.map( task => ( {
+        ...state,
+        sync: true,
+        todos: state.todos.map( task => ( {
           ...task,
           completed: !task.completed
         } ) )
@@ -71,6 +86,7 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
     [ TODO_ACTIONS.CLEAR ]: (): TodoState => {
       return {
         ...state,
+        sync: true,
         todos: state.todos.filter( task => !task.completed )
       }
     },
@@ -84,6 +100,7 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       } );
       return {
         ...state,
+        sync: true,
         todos: newTasks
       }
     }
