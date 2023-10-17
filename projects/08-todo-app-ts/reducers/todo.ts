@@ -24,7 +24,16 @@ export const TODO_ACTIONS = {
   EDIT_TASK: 'EDIT_TASK'
 }
 
-export const todoReducer = ( state: TodoState, action ): TodoState => {
+type ActionTodoReducer = { type: typeof TODO_ACTIONS.INIT_TASKS, payload: Todo[] } |
+{ type: typeof TODO_ACTIONS.ADD_TASK, payload: Todo } |
+{ type: typeof TODO_ACTIONS.REMOVE_TASK, payload: TodoId } |
+{ type: typeof TODO_ACTIONS.TOGGLE_COMPLETE_TASK, payload: boolean } |
+{ type: typeof TODO_ACTIONS.FILTER, payload: FilterType } |
+{ type: typeof TODO_ACTIONS.CLEAR } |
+{ type: typeof TODO_ACTIONS.TOGGLE_ALL, payload: boolean } |
+{ type: typeof TODO_ACTIONS.EDIT_TASK, payload: TodoId };
+
+export const todoReducer = ( state: TodoState, action: ActionTodoReducer ): TodoState => {
   const { type, payload } = action;
   const REDUCER = {
     [ TODO_ACTIONS.INIT_TASKS ]: (): TodoState => {
@@ -74,12 +83,13 @@ export const todoReducer = ( state: TodoState, action ): TodoState => {
       }
     },
     [ TODO_ACTIONS.TOGGLE_ALL ]: (): TodoState => {
+      const completed = payload;
       return {
         ...state,
         sync: true,
         todos: state.todos.map( task => ( {
           ...task,
-          completed: !task.completed
+          completed
         } ) )
       }
     },

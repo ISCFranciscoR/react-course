@@ -27,8 +27,8 @@ export function useTodosReducer() {
   const clearAllCompleted = () => {
     dispatch({ type: TODO_ACTIONS.CLEAR });
   };
-  const toggleAll = () => {
-    dispatch({ type: TODO_ACTIONS.TOGGLE_ALL });
+  const toggleAll = (completed: boolean) => {
+    dispatch({ type: TODO_ACTIONS.TOGGLE_ALL, payload: completed });
   };
   const editTask = (task: { id: TodoId; title: string }) => {
     dispatch({ type: TODO_ACTIONS.EDIT_TASK, payload: task });

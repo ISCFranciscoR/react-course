@@ -1,6 +1,6 @@
 import { Todo } from "../models/todo";
 
-export type TodoId = typeof Todo[ 'id' ];
+export type TodoId = Todo[ 'id' ];
 
 export const FILTER_TYPES = {
   ALL: 'all',

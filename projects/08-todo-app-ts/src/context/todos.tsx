@@ -10,7 +10,7 @@ interface TodosContextData extends TodoState {
   toggleCompleteTask: (id: TodoId) => void;
   setFilter: (filter: FilterType) => void;
   clearAllCompleted: () => void;
-  toggleAll: () => void;
+  toggleAll: (completed: boolean) => void;
   editTask: ({ id, title }: { id: TodoId; title: string }) => void;
 }
 
