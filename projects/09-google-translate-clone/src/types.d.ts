@@ -1,6 +1,7 @@
+import { SUPPORTED_LANGUAGES, AUTO_LANGUAGE } from './constants/general';
 export interface TranslationState {
-  fromLanguage: string;
-  toLanguage: string;
+  fromLanguage: FromLanguage;
+  toLanguage: Language;
   fromText: string;
   result: string;
   loading: boolean;
@@ -15,7 +16,22 @@ export enum TRANSLATE_ACTIONS {
 }
 
 export type Action = { type: 'INTERCHANGE_LANGUAGES' }
-  | { type: 'SET_FROM_LANGUAGE', payload: string }
-  | { type: 'SET_TO_LANGUAGE', payload: string }
+  | { type: 'SET_FROM_LANGUAGE', payload: FromLanguage }
+  | { type: 'SET_TO_LANGUAGE', payload: Language }
   | { type: 'SET_FROM_TEXT', payload: string }
   | { type: 'SET_TO_TEXT', payload: string };
+
+export type Language = keyof typeof SUPPORTED_LANGUAGES;
+export type AutoLanguage = typeof AUTO_LANGUAGE;
+export type FromLanguage = Language | AutoLanguage;
+
+export enum SectionType {
+  from = 'from',
+  to = 'to'
+}
+
+export type RGB = `rgb(${number}, ${number}, ${number})`;
+export type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
+export type HEX = `#${string}`;
+
+export type Color = RGB | RGBA | HEX;

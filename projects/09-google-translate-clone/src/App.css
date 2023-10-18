@@ -3,3 +3,13 @@
   margin: 0 auto;
   padding: 2rem;
 }
+
+.icon-app {
+  width: 100px;
+  height: auto;
+}
+
+.custom-toast {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+}
