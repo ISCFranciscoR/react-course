@@ -14,6 +14,7 @@ const commonStyles = {
   height: '200px',
   position: 'relative',
   zIndex: 0,
+  backgroundColor: 'trasnparent',
 };
 
 const getPlaceholder = ({
