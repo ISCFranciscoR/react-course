@@ -1,4 +1,4 @@
-import { users } from '../mocks/table-data';
+
 import {
   Card,
   Table,
@@ -10,6 +10,7 @@ import {
   Text,
   Title,
 } from '@tremor/react';
+import { users } from '../mocks/table-data';
 
 
 export const ListOfUsers = () => {
