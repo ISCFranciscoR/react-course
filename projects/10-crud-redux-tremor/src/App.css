@@ -1,0 +1,25 @@
+body {
+  padding: 1rem 2rem;
+}
+
+.img-avatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
+.column-avatar,
+.column-actions {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.hero-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hero-icon:hover {
+  transform: scale(1.1);
+}

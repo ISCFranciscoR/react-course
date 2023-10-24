@@ -1,0 +1,1 @@
+export const getUUID = window.crypto.randomUUID();
